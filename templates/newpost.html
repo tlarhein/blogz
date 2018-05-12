@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1>Welcome to Build-A-Blog with Tracey Cannon</h1>
+<h3>Where you can speak your mind...</h3>
+<form action="/new_post" method="post">
+
+        <label for="new_post_title"><h3>Title:</h3></label>
+        <input id="new_post_title" name="title" type="text" value="{{ new_post_title }}">
+       
+        <label for="new_post_body"><h3>Say what you'd like...</h3></label>
+        <textarea rows="10" cols="60" id="new_post_body" name="body" >{{ new_post_body }}</textarea>
+
+    <input id="submit_button" type="submit" value="Now Post!">
+</form>
+{% endblock %}
