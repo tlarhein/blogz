@@ -1,17 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>List of Blog Entries</h1>
+    <h1>Build-A- Blog Entries</h1>
+
+    {% if posts|length == 0 %}
+        <p>No entries yet</p>
+    {% else %}
+        <div class="all-posts">
     <ul>
-        {% for entry in blog %}
+            {% for post in posts %}
+            <div class="single-post">
+
             <li>
                 <h2>
-                    <a href="/blog?id={{ blog.id }}">{{ blog.title }}</a>
+                    <a href="/?id={{ post.id }}">{{ post.title }}</a>
                 </h2>
-                <p>{{ blog.body }}</p>
-                <p>{{ blog.date }}</p>
-               
+                <p>{{ post.body }}</p>
+                <p>{{ post.date }}</p>
+            
             </li>
-        {% endfor %}
+            </div>
+            {% endfor %}
+        
     </ul>
+        </div>
+    {% endif %}
+
 {% endblock %}

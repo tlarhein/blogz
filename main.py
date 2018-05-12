@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template, flash
+from flask import Flask, request, redirect, render_template, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -13,14 +13,16 @@ app.secret_key = 'cmarch102562tmarch041662'
 
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.Text(150))
+    title = db.Column(db.String(150))
     body = db.Column(db.Text(700))
     date = db.Column(db.DateTime)
      
-    def __init__(self, title, body ):
+    def __init__(self, title, body, date=None):
         self.title = title
         self.body = body
-        self.date = datetime.utcnow()
+        if date is None:
+            date = datetime.utcnow()
+        self.date = date
 
     def is_valid(self):
         if self.title and self.body:
@@ -33,23 +35,20 @@ def index():
     return redirect("/blog")
 
 
-@app.route('/blog')
+@app.route('/blog')                      #FOR ALL ENTRIES
 def blog():
-    blog_id = request.args.get('id')
-    if (blog_id):
-        blog = Blog.query.get(blog_id)
-        return render_template('post.html', title="Blog Post", post=post)
+    if request.args:
+        blog_id = request.args.get('id')
+        blog_post = Blog.query.get(post_id)
+        return render_template('post.html', title="Single Blog Post", post=blog_post)
 
-    sort = request.args.get('sort')
-    if (sort=="newest"):
-        blog = Blog.query.order_by(Blog.date.desc()).all()
-    else:
-        blog = Blog.query.all()   
-    return render_template('blog.html', title="All Entries", blog=blog) 
+    blog_posts = Blog.query.order_by(Blog.date.desc()).all()
+    return render_template('blog.html', title="Build-A-Blog Posts", posts=blog_posts)
+    
 
 
 
-@app.route('/new_post', methods=['GET', 'POST'])
+@app.route('/new_post', methods=['GET', 'POST'])    #FOR NEW ENTRIES
 def new_post():
     if request.method == 'POST':
         
@@ -61,17 +60,16 @@ def new_post():
         new_post_body_error = ""
         
         if new_post_title == "":
-            return "Error - Please add a title to your entry!"
+            return "Error - Please add a title AND post to your entry!"
         elif new_post_body == "":
-            return "Error - Please add text to the post box!"
+            return "Error - Please add title AND post to your entry!"
 
         elif new_post.is_valid():
             db.session.add(new_post)
             db.session.commit()
             
             
-            url = "/blog?id" + str(new_post.id)
-            return redirect(url)
+            return redirect(url_for('blog'))
 
         else:
             return render_template('newpost.html', 
