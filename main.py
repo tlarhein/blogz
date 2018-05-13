@@ -39,14 +39,12 @@ def index():
 def blog():
     if request.args:
         blog_id = request.args.get('id')
-        blog_post = Blog.query.get(post_id)
+        blog_post = Blog.query.get(blog_id)
         return render_template('post.html', title="Single Blog Post", post=blog_post)
 
-    blog_posts = Blog.query.order_by(Blog.date.desc()).all()
+    blog_posts = Blog.query.order_by(Blog.date.asc()).all()
     return render_template('blog.html', title="Build-A-Blog Posts", posts=blog_posts)
     
-
-
 
 @app.route('/new_post', methods=['GET', 'POST'])    #FOR NEW ENTRIES
 def new_post():
@@ -59,9 +57,9 @@ def new_post():
         new_post_title_error = ""
         new_post_body_error = ""
         
-        if new_post_title == "":
+        if new_post_title == new_post_title_error:
             return "Error - Please add a title AND post to your entry!"
-        elif new_post_body == "":
+        elif new_post_body == new_post_body_error:
             return "Error - Please add title AND post to your entry!"
 
         elif new_post.is_valid():
@@ -69,18 +67,16 @@ def new_post():
             db.session.commit()
             
             
-            return redirect(url_for('blog'))
+            return redirect(url_for('new_post'))
 
         else:
             return render_template('newpost.html', 
                 title="Enter a new Blog Post", 
                 new_post_title=new_post_title, 
-                new_post_body=new_post_body,
-                new_post_title_error=new_post_title_error,
-                new_post_body_error=new_post_body_error)
+                new_post_body=new_post_body)
 
     else:
-        return render_template('newpost.html', title="Enter a new Blog Post")
+        return render_template('newpost.html', title="Blog Posts")
 
 
 if __name__ == '__main__':

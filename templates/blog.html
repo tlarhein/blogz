@@ -1,24 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Build-A- Blog Entries</h1>
+    <h1>Build-A-Blog Entries</h1>
 
     {% if posts|length == 0 %}
-        <p>No entries yet</p>
+        <p>No entries yet, you be the first!</p>
     {% else %}
         <div class="all-posts">
     <ul>
             {% for post in posts %}
             <div class="single-post">
 
-            <li>
+           
                 <h2>
-                    <a href="/?id={{ post.id }}">{{ post.title }}</a>
+                    <a href="/post?id={{ post.id }}">{{ post.title }}</a>
                 </h2>
                 <p>{{ post.body }}</p>
-                <p>{{ post.date }}</p>
+                
             
-            </li>
+            
             </div>
             {% endfor %}
         

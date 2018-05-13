@@ -1,10 +1,10 @@
 @app.route('/')
 def index():
     if request.args:
-        post_id = request.args.get('id')
-        blog_post = Blog.query.get(post_id)
+        blog_id = request.args.get('id')
+        blog_post = Blog.query.get(blog_id)
         
-        return render_template('post.html', title='Single Post', post=blog_post)
+        return render_template('post.html', title='Single Blog Post', post=blog_post)
 
-    blog_posts = Blog.query.order_by(Blog.date.desc()).all()
-    return render_template('blog.html', title='Blogs', posts=blog_posts)
+    blog_posts = Blog.query.order_by(Blog.date.asc()).all()
+    return render_template('blog.html', title='Build-A-Blog Posts', posts=blog_posts)
