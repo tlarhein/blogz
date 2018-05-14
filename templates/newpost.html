@@ -4,7 +4,7 @@
 {% block content %} 
     <h1>Welcome to Build-A-Blog</h1>
     <h3>Where you can speak your mind with Tracey Cannon...</h3>
-    
+
     <form action="/new_post" method="POST">
         <div>
 
@@ -26,7 +26,9 @@
             </p>
         </div>
 
-        <input id="submit_button" type="submit" value="Now Post!">
+        <div class="actionButtons">
+            <input id="submit_button" type="submit" value="Now Post!">
+        </div>
     </form>
     
 {% endblock %}

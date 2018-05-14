@@ -1,11 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <h1>A Build-a-Blog Entry</h1>
 
     <div class="single-post">
-    
-        <h2>{{ new_post.title }}</h2>
-        <p>{{ new_post.body }}</p>
+
+        <h2>
+            <a href="http://127.0.0.1:5000/post">{{ post.title }}</a>
+        </h2>
+
+        <h1>
+           <p>{{ post.body }}</p>
+        </h1>
+       
+
+
+
+
     </div>
     
     
