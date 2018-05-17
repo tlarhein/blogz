@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Build-A-Blog Entries</h1>
+    <h1>All Build-A-Blog Entries</h1>
 
     {% if posts|length == 0 %}
         <p>No entries yet, you be the first!</p>
@@ -9,13 +9,13 @@
         <div class="all-posts">
     <ul>
             {% for post in posts %}
-            <div class="single-post">
-
-           
-                <h2>
-                    <a href="/post?id={{ post.id }}">{{ post.title }}</a>
-                </h2>
-                <p>{{ post.body }}</p>
+            <div class="post">
+            <h2>
+                <div class="title"><a href="/blog?id/{{ post.id }}">{{ post.title }}</a></div></h2>
+            <h3>
+                <div class="post-body"><p>{{ post.body }}</p></div>
+            </h3>
+                
                 
             
             

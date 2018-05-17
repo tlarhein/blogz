@@ -39,7 +39,9 @@ def index():
 def blog():
     if request.args:
         blog_id = request.args.get('id')
-        blog_post = Blog.query.get(blog_id)
+        blog_post = Blog.query.get('id')
+        blog_title=Blog.query.get('title')        
+        post_body = Blog.query.get('body')
         return render_template('post.html', title="Single Blog Post", post=blog_post)
 
     blog_posts = Blog.query.order_by(Blog.date.asc()).all()
@@ -76,8 +78,8 @@ def new_post():
                 new_post_body=new_post_body)
 
     else:
-        return render_template('newpost.html', title="Blog Posts")
+        return render_template('newpost.html', title="Enter new blog post")
 
 
 if __name__ == '__main__':
-    app.run()       
+        app.run() 

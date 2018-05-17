@@ -3,21 +3,29 @@
 {% block content %}
     <h1>A Build-a-Blog Entry</h1>
 
-    <div class="single-post">
+        <div class="single-post">
 
-        <h2>
-            <a href="http://127.0.0.1:5000/post">{{ post.title }}</a>
-        </h2>
+    <li>   
+            {% for post in posts %}
+            <div class="post">
+            <h2>
+                <div class="title"><a href="/blog?id/{{ post.id }}">{{ post.title }}</a></div>
+                <div class="post-body"><p>{{ post.body }}</p></div>
 
-        <h1>
-           <p>{{ post.body }}</p>
-        </h1>
+                <p>{{ post.body}}</p>
+            </h2>
+
+        
        
 
 
 
 
-    </div>
+             </div>
+            {% endfor %}
+
+    </li>
+        </div> 
     
     
 {% endblock %}
