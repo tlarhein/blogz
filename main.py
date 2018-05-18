@@ -44,7 +44,7 @@ def blog():
         return render_template('post.html', title="Single Blog Post", post=blog_post)
 
     blog_posts = Blog.query.order_by(Blog.date.asc()).all()
-    return render_template('blog.html', title="Build-A-Blog Posts", posts=blog_posts)
+    return render_template('blog.html', title="Build-A-Blog", posts=blog_posts)
     
 
 @app.route('/new_post', methods=['GET', 'POST'])    #FOR NEW ENTRIES
