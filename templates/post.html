@@ -5,15 +5,17 @@
 
         <div class="single-post">
 
-    <li>   
-            {% for post in posts %}
+    <ul>   
+            
             <div class="post">
             <h2>
                 <div class="title"><a href="/blog?id/{{ post.id }}">{{ post.title }}</a></div>
+            </h2>
+            <h3>
                 <div class="post-body"><p>{{ post.body }}</p></div>
 
-                <p>{{ post.body}}</p>
-            </h2>
+             
+            </h3>
 
         
        
@@ -22,9 +24,9 @@
 
 
              </div>
-            {% endfor %}
+            
 
-    </li>
+    </ul>
         </div> 
     
     

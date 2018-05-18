@@ -1,6 +1,7 @@
 from flask import Flask, request, redirect, render_template, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from werkzeug.routing import BuildError
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -37,11 +38,9 @@ def index():
 
 @app.route('/blog')                      #FOR ALL ENTRIES
 def blog():
-    if request.args:
-        blog_id = request.args.get('id')
-        blog_post = Blog.query.get('id')
-        blog_title=Blog.query.get('title')        
-        post_body = Blog.query.get('body')
+    blog_id = request.args.get('id')
+    if blog_id:
+        blog_post = Blog.query.get(blog_id)  
         return render_template('post.html', title="Single Blog Post", post=blog_post)
 
     blog_posts = Blog.query.order_by(Blog.date.asc()).all()
